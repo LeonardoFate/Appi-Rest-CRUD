@@ -1,15 +1,20 @@
 const express = require("express");
 const mongodb = require("mongoose");
 require("dotenv").config();
+const userRoutes = require("./routs/user")
 const port = process.env.PORT || 9000;
 const app = express();
 
-//Rutas
+//middleware
+app.use(express.json());//pruebas
+app.use('/api', userRoutes);
+
+//routes
 app.get('/', (req, res) => {
-    res.send('Bienvenidos a mi aplicacion');
+    res.send('Welcome to my api');
 })
 
-//conexion base de datos
+//connection DB
 mongodb
     .connect(process.env.MONGO_URI)
     .then(() => console.log("Conexion a la base exitosa"))
